@@ -58,7 +58,7 @@ Build an image from this Dokcerfile using :
              fi
              
 This way, you can mention all possible libraries as per your requirement. This will download only those libraries in the container, which are required in that specific program. Thus, a highly customized container will be created. 
-I have not used this technique in my project because it will download the required libraries everytime a new ML model comes. I have mentioned commonly used libraries directly in my Dockerfile because in that way, I have to download the libraries just once. However, if you have a good internet connections & want a highly customized container, you can go for this technique.
+I have not used this technique in my project because it will download the required libraries everytime a new ML model comes. I have mentioned commonly used libraries directly in my Dockerfile because in that way, I have to download the libraries just once. However, if you have a good internet connection & want a highly customized container, you can go for this technique.
 
 
 
@@ -66,6 +66,8 @@ I have not used this technique in my project because it will download the requir
 If the accuracy is less than 90 percent, a _**model tweak**_ job will be auto triggered that will modify the model in several ways to increase it's accuracy & then the model will be retrained.
 
 My ML model is as follows :
+
+(I have tested it on various ML models. It works successfully. This is just a sample model if you wish to test the procedure. I have provided the _**wines.csv**_ dataset used in this model in the same repository.)
  
 
 
@@ -112,3 +114,7 @@ The piece of code to be appended is as follows :
                   
                   
 It'll be automatically appended by the following Jenkins task :
+
+
+
+
