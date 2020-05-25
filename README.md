@@ -32,6 +32,8 @@ Build an image from this Dokcerfile using :
            
          
          
+         
+         
 **Step : 3** A docker container will automatically run with a persistent volume attached to ensure no data loss. We had downloaded all the code in this same persistent volume in step 1. So, all the code is now present in the container. 
 
 
@@ -59,6 +61,8 @@ Build an image from this Dokcerfile using :
              
 This way, you can mention all possible libraries as per your requirement. This will download only those libraries in the container, which are required in that specific program. Thus, a highly customized container will be created. 
 I have not used this technique in my project because it will download the required libraries everytime a new ML model comes. I have mentioned commonly used libraries directly in my Dockerfile because in that way, I have to download the libraries just once. However, if you have a good internet connection & want a highly customized container, you can go for this technique.
+
+
 
 
 
@@ -110,10 +114,39 @@ The piece of code to be appended is as follows :
                if int(acc) > 90 :
                  os.system('curl --user "admin:redhat" http://192.168.42.113:8080/job/success%20mail/build?token=sparsh')
                else :
-                  os.system('curl --user "admin:redhat" http://192.168.42.113:8080/job/success%20mail/build?token=sparsh')
+                  os.system('curl --user "admin:redhat" http://192.168.42.113:8080/job/model%20tweak/build?token=sparsh')
                   
                   
 It'll be automatically appended by the following Jenkins task :
+
+
+
+
+**Step : 5** This is the _**success mail**_  task of Jenkins that will be trigerred only when thw accuracy is greater than 90 percent.
+
+
+
+If you mail fails to send, you need to go to Jenkins configuration & do the following setup :
+
+
+After that you need to go to your Redhat VM & run --
+      
+
+In that file, in the **JENKINS_JAVA_OPTIONS=" "**, make the following changes:
+
+
+After that, restart your Jenkins using *systemctl restart jenkins*. 
+
+If you still face error in sending email, & the popup says **authentication error**, you need to go to your Google Account & disable the two step authentication & turn on *less secure app access* option below it. 
+After this, you can test the email service by sending a test mail. It'll work fine.
+
+
+
+
+**Step : 6** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it.
+
+
+
 
 
 
