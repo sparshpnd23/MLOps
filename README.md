@@ -141,7 +141,7 @@ It'll be automatically appended by the following Jenkins task :
 
 
 
-**Step : 6** This is the _**success mail**_  task of Jenkins that will be trigerred only when thw accuracy is greater than 90 percent.
+**Step : 6** This is the _**success mail**_  task of Jenkins that will be trigerred only when the accuracy is greater than 90 percent.
 
 ![](/images/mail7.png)
 
@@ -157,7 +157,7 @@ After that you need to go to your Redhat VM & run --
 
 In that file, in the **JENKINS_JAVA_OPTIONS=" "**, make the following changes:
 
-![](/images/mail10.png))
+![](/images/mail10.png)
 
 
 After that, restart your Jenkins using *systemctl restart jenkins*. 
