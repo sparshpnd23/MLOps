@@ -122,7 +122,16 @@ It'll be automatically appended by the following Jenkins task :
 
 
 
-**Step : 5** This is the _**success mail**_  task of Jenkins that will be trigerred only when thw accuracy is greater than 90 percent.
+
+
+
+**Step : 5** A Jenkins task will automatically start training the model as soon as code is appended. I have organised these tasks in a systematic way and linked them one after the another. When a task successfully completes, it triggers the next task.
+
+
+
+
+
+**Step : 6** This is the _**success mail**_  task of Jenkins that will be trigerred only when thw accuracy is greater than 90 percent.
 
 
 
@@ -143,7 +152,7 @@ After this, you can test the email service by sending a test mail. It'll work fi
 
 
 
-**Step : 6** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it.
+**Step : 7** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it.
 
 
 
