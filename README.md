@@ -30,10 +30,85 @@ Build an image from this Dokcerfile using :
            
            docker build -t NAME:TAG /location_of_Dockerfile
            
+         
+         
+**Step : 3** A docker container will automatically run with a persistent volume attached to ensure no data loss. We had downloaded all the code in this same persistent volume in step 1. So, all the code is now present in the container. 
 
-           
-           
-           
-           
-           
 
+**Note : I have downloaded all the prominent libraries in my Dockerfile but if you want a customized image, you can just create a Dockerfile by installing python & upgrading pip. After that, you can analyze the code to auto download required libraries in the container, when it has been launched. This can be done by adding the following commands in the above Jenkins Task :**
+                   
+             if sudo cat ml/model.py | grep keras
+             then
+             sudo docker exec s1 bash -c "pip3 install keras"
+             fi
+             
+             if sudo cat ml/model.py | grep sklearn
+             then
+             sudo docker exec s1 bash -c "pip3 install sklearn"
+             fi
+             
+             if sudo cat ml/model.py | grep tensorflow
+             then
+             sudo docker exec s1 bash -c "pip3 install tensorflow"
+             fi
+             
+             if sudo cat ml/model.py | grep opencv
+             then
+             sudo docker exec s1 bash -c "pip3 install opencv-python"
+             fi
+             
+This way, you can mention all possible libraries as per your requirement. This will download only those libraries in the container, which are required in that specific program. Thus, a highly customized container will be created. 
+I have not used this technique in my project because it will download the required libraries everytime a new ML model comes. I have mentioned commonly used libraries directly in my Dockerfile because in that way, I have to download the libraries just once. However, if you have a good internet connections & want a highly customized container, you can go for this technique.
+
+
+
+**Step : 4** I have a small code present in the same persistent volume in which the ML model will be downloaded. This piece of code needs to be appended to the ML model. The task of this code is to check the accuracy & accordingly trigger other jenkins Jobs. If the accuracy is greater than 90 percent, a _**success mail**_ Jenkins job will be auto-trigerred to send a mail to the specified email.
+If the accuracy is less than 90 percent, a _**model tweak**_ job will be auto triggered that will modify the model in several ways to increase it's accuracy & then the model will be retrained.
+
+My ML model is as follows :
+ 
+
+
+                import pandas as pd
+                df = pd.read_csv('wines.csv')
+                y = df['Class']
+                y_cat = pd.get_dummies(y)
+                X = df.drop('Class' , axis=1)
+                from keras.models import Sequential
+                model  =  Sequential()
+                from keras.layers import Dense
+                model.add(Dense(units=5 , input_shape=(13,), 
+                                          activation='relu', 
+                                          kernel_initializer='he_normal' ))
+                model.add(Dense(units=8 , 
+                                activation='relu', 
+                                kernel_initializer='he_normal' ))
+                model.add(Dense(units=2, 
+                                activation='relu', 
+                                kernel_initializer='he_normal' ))
+                model.add(Dense(units=3, activation='softmax'))
+                from keras.optimizers import RMSprop
+                model.compile(optimizer=RMSprop(learning_rate=0.01),  
+                              loss='categorical_crossentropy',
+                              metrics=['accuracy']
+                              )
+                accuracy = model.fit(X,y_cat, epochs=100)
+
+                model.save('modelsave.h5')
+
+                acc=accuracy.history['accuracy'][-1:][0]
+
+
+Note that I have saved my accuracy in _**acc**_ variable in this model. That's why I have used the same _**acc**_ variable in my code that'll be appended to this.
+
+The piece of code to be appended is as follows :
+
+               acc = acc * 100
+               import os
+               if int(acc) > 90 :
+                 os.system('curl --user "admin:redhat" http://192.168.42.113:8080/job/success%20mail/build?token=sparsh')
+               else :
+                  os.system('curl --user "admin:redhat" http://192.168.42.113:8080/job/success%20mail/build?token=sparsh')
+                  
+                  
+It'll be automatically appended by the following Jenkins task :
