@@ -171,6 +171,8 @@ After this, you can test the email service by sending a test mail. It'll work fi
 
 **Step : 7** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it.
 
+   Ye task ho nhi paa rha. Koi help krr do pls. Model ko modify kaise kru......
+
 
 
 
