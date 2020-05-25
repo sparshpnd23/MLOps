@@ -8,11 +8,11 @@ The detailed step by step description of the project is as follows :
 
 **Step 1 :** A Jenkins task will work to auto download the code whenever it is pushed.
 
-[](/images/cc1.png)
+![](/images/cc1.png)
 
-[](/images/cc2.png)
+![](/images/cc2.png)
 
-[](/images/cc3.png)
+![](/images/cc3.png)
 
 
 **Step 2:** I have a Dockerfile pre created in my Redhat Linux. This Dockerfile contains all the libraries necessary for training a model. However, you can add or remove according to your requirement.
@@ -42,7 +42,7 @@ Build an image from this Dokcerfile using :
          
 **Step : 3** A docker container will automatically run with a persistent volume attached to ensure no data loss. We had downloaded all the code in this same persistent volume in step 1. So, all the code is now present in the container. 
 
-[](/images/dr4.png)
+![](/images/dr4.png)
 
 
 **Note : I have downloaded all the prominent libraries in my Dockerfile but if you want a customized image, you can just create a Dockerfile by installing python & upgrading pip. After that, you can analyze the code to auto download required libraries in the container, when it has been launched. This can be done by adding the following commands in the above Jenkins Task :**
@@ -127,7 +127,7 @@ The piece of code to be appended is as follows :
                   
 It'll be automatically appended by the following Jenkins task :
 
-[](/images/ap5.png)
+![](/images/ap5.png)
 
 
 
@@ -137,27 +137,27 @@ It'll be automatically appended by the following Jenkins task :
 
 **Step : 5** A Jenkins task will automatically start training the model as soon as code is appended. I have organised these tasks in a systematic way and linked them one after the another. When a task successfully completes, it triggers the next task.
 
-[](/images/mt6.png)
+![](/images/mt6.png)
 
 
 
 **Step : 6** This is the _**success mail**_  task of Jenkins that will be trigerred only when thw accuracy is greater than 90 percent.
 
-[](/images/mail7.png)
+![](/images/mail7.png)
 
 If you mail fails to send, you need to go to Jenkins configuration & do the following setup :
 
-[](/images/mail8.png)
+![](/images/mail8.png)
 
 
 After that you need to go to your Redhat VM & run --
 
-[](/images/mail9.png)      
+![](/images/mail9.png)      
 
 
 In that file, in the **JENKINS_JAVA_OPTIONS=" "**, make the following changes:
 
-[](/images/mail10.png))
+![](/images/mail10.png))
 
 
 After that, restart your Jenkins using *systemctl restart jenkins*. 
