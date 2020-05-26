@@ -90,6 +90,13 @@ My ML model is as follows :
                 X = df.drop('Class' , axis=1)
                 from keras.models import Sequential
                 model  =  Sequential()
+                
+                from sklearn.model_selection import train_test_split
+                X_train,X_test,y_train,y_test=train_test_split(X,y_cat,test_size=0.3,random_state=50)
+                from sklearn.preprocessing import StandardScaler
+                sc=StandardScaler()
+                X_train=sc.fit_transform(X_train)
+
                 from keras.layers import Dense
                 model.add(Dense(units=5 , input_shape=(13,), 
                                           activation='relu', 
@@ -106,7 +113,10 @@ My ML model is as follows :
                               loss='categorical_crossentropy',
                               metrics=['accuracy']
                               )
-                accuracy = model.fit(X,y_cat, epochs=100)
+                accuracy = model.fit(X_train,y_train,epochs=20)
+                
+                X_test=sc.transform(X_test)
+                y_pred=model.predict(X_test)
 
                 model.save('modelsave.h5')
 
