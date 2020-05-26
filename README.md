@@ -42,7 +42,7 @@ Build an image from this Dokcerfile using :
          
 **Step : 3** A docker container will automatically run with a persistent volume attached to ensure no data loss. We had downloaded all the code in this same persistent volume in step 1. So, all the code is now present in the container. 
 
-![](/images/dr4.png)
+![](/images/docker.png)
 
 
 **Note : I have downloaded all the prominent libraries in my Dockerfile but if you want a customized image, you can just create a Dockerfile by installing python & upgrading pip. After that, you can analyze the code to auto download required libraries in the container, when it has been launched. This can be done by adding the following commands in the above Jenkins Task :**
@@ -180,9 +180,11 @@ After this, you can test the email service by sending a test mail. It'll work fi
 
 
 
-**Step : 7** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it.
+**Step : 7** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it. Here, I achieved around 97 percent accuracy after my model was modified.
 
-   Ye task ho nhi paa rha. Koi help krr do pls. Model ko modify kaise kru......
+![](/images/mt1.png)
+
+![](/images/mt2.png)
 
 
 **Step : 8** This task will  keep on monitoring the container in which model is being trained. If the container crashes due to any reason, this task will trigger **Step 3**, in which we had launched the docker container. Since the model is being saved after every train & there is a persistent volume attached, so no data loss will occur & new container would carry on from where last container had left.
