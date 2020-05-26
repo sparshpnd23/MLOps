@@ -184,5 +184,12 @@ This Jenkins task will keep on running each minute & I have deliberately failed 
 ![](/images/mon12.png)
 
 
+The system is ready to use.
+
+**P.S. - I'm still a learner. In fact, we all are. I'll keep modifying this project for better. Any ideas or suggesstions are warmly welcome. WhatsApp me at - 8077613465 (No calls please)**
+
+**Jai Hind !!**
+
+
 
 
