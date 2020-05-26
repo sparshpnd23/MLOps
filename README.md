@@ -174,6 +174,8 @@ After this, you can test the email service by sending a test mail. It'll work fi
    Ye task ho nhi paa rha. Koi help krr do pls. Model ko modify kaise kru......
 
 
+**Step : 8** This task will  keep on monitoring the container in which model is being trained. If the container crashes due to any reason, this task will trigger **Step 3**, in which we had launched the docker container. Since the model is being saved after every train & there is a persistent volume attached, so no data loss will occur & new container would carry on from where last container had left.
+This Jenkins task will keep on running each minute & I have deliberately failed it if an existing docker container with the name s1 is found. This task will only succeed if it finds no s1 running. Then, it will trigger Step 2 & all the next steps will be automatically followed.
 
 
 
