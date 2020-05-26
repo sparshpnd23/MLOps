@@ -1,8 +1,8 @@
 # MLOps - Integrating ML with DevOps
 
 In this project, the aim is to automate the training of an ML model using DevOps. Whenever any code will be pushed to the mentioned github repo, it will be auto downloaded and analysed. Then, a highly customised docker container will be auto launched. This container would contain all the necessary python libraries required for that code.
-Then, the code will be transferred into that container & the model will begin to train automatically. After the model has been trained, the accuracy will be retrieved if the accuracy is greater than the mentioned threshold (90 percent in this case), a success mail will be sent to the mentioned email.
-in case the accuracy is below the specified threshold, the code will automatically make changes in the model & retrain it until accuracy touches the benchmark. These changes will be made in the form of increasing layers, epochs, using augmentation in case of images, etc.
+Then, the code will be transferred into that container & the model will begin to train automatically. After the model has been trained, the accuracy will be retrieved. If the accuracy is greater than the mentioned threshold (90 percent in this case), a success mail will be sent to the mentioned email.
+In case the accuracy is below the specified threshold, the code will automatically make changes in the model & retrain it until accuracy touches the benchmark. These changes will be made in the form of increasing layers, epochs, using augmentation in case of images, etc.
 
 The detailed step by step description of the project is as follows :
 
@@ -184,7 +184,7 @@ After this, you can test the email service by sending a test mail. It'll work fi
 
 Model tweaking will be done by modifying the Hyper parameters.
 
-First of all, a pre-created python program will check if the model has feature scaling or not. Feature Scaling creates a massive impact on the accuracy of the model. If it hasn't been done, this program will automatically do it.
+First of all, a pre-created python program will check if the model has it's features scaled or not. Feature Scaling creates a massive impact on the accuracy of the model. If it hasn't been done, this program will automatically do it.
 
                      X_test="X_test=sc.transform(X_test)"
                      import sys
