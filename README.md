@@ -182,6 +182,76 @@ After this, you can test the email service by sending a test mail. It'll work fi
 
 **Step : 7** This is the _**model tweak**_ task that'll be trigerred if the accuracy is less than 90 percent. This will make necessary changes in the model & retrain it. Here, I achieved around 97 percent accuracy after my model was modified.
 
+Model tweaking will be done by modifying the Hyper parameters.
+
+First of all, a pre-created python program will check if the model has feature scaling or not. Feature Scaling creates a massive impact on the accuracy of the model. If it hasn't been done, this program will automatically do it.
+
+                     X_test="X_test=sc.transform(X_test)"
+                     import sys
+                     from fileinput import *
+                     files=sys.argv[1]
+                     scaled=False
+                     with FileInput(files) as f:
+                       for line in f:
+                         if "StandardScalar" in line:
+                           scaled=True
+                           break
+                         else:
+                           continue
+
+                     if scaled ==False:
+                       with FileInput(files,inplace=True) as f:
+                         for line in f:
+                           if "X_train,X_test,y_train,y_test=train_test_split" in line:
+                             print(line.replace(line,line.strip()+"\n"+toscale.strip()))
+
+                           if "model.fit" in  line:
+                              print(line.replace(line,line.strip()+"\n"+X_test.strip()))
+                           else:
+                             if "X_train,X_test,y_train,y_test=train_test_split" not in line:
+                               print(line.strip())
+                               
+Secondly, another pre-created code will work to add dense layers in the model. Adding layers can affect the accuracy by a large margin.
+
+		import random
+		def add_layers(n,units):
+		    units=random.randint(n*units,n*units+units)
+		    activ="+acti+"
+		    layer=n*"model.add(Dense(units={0},activation='relu'))\n".format(units)
+
+		    return layer
+		X_test="X_test=sc.transform(X_test)"
+		import sys
+		from fileinput import *
+		files=sys.argv[1]
+		count=0
+		with FileInput(files) as f:
+		    for line in f:
+		        if "model.add(Dense" in line:
+			 count=count+1
+
+		        else:
+			 continue
+
+		if count < 4:
+		    if count==0:
+		        n=4
+		    else:
+			n=4-count
+		    with FileInput(files,inplace=True) as f:
+		        for line in f:
+			 if "model.add(Dense" in line and "input_shape" in line:
+			     lineadd=add_layers(n,20) 
+			     print(line.replace(line,line+"\n"+lineadd.strip()))
+			 else:
+			    print(line.strip())
+
+		  
+Similarly, you can also create a program to increase the number of epochs. Here, I haven't done it because in this model, modifying these two hyper parameters will give us great accuracy.
+
+Now, when the model is retrained, we see that our accuracy is vey good.
+
+
 ![](/images/mt1.png)
 
 ![](/images/mt2.png)
