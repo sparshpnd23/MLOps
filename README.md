@@ -126,6 +126,7 @@ The piece of code to be appended is as follows :
                   
                   
 It'll be automatically appended by the following Jenkins task :
+(If it has been already appended, then it'll not be appended again. This condition is necessary because in case of container crash, the monitoring task will trigger the whole pipeline from Step 3, i.e. , the container launching task. Hence, if the code has been already appended, it need not be appended again.)
 
 ![](/images/ap5.png)
 
@@ -177,6 +178,10 @@ After this, you can test the email service by sending a test mail. It'll work fi
 **Step : 8** This task will  keep on monitoring the container in which model is being trained. If the container crashes due to any reason, this task will trigger **Step 3**, in which we had launched the docker container. Since the model is being saved after every train & there is a persistent volume attached, so no data loss will occur & new container would carry on from where last container had left.
 This Jenkins task will keep on running each minute & I have deliberately failed it if an existing docker container with the name s1 is found. This task will only succeed if it finds no s1 running. Then, it will trigger Step 2 & all the next steps will be automatically followed.
 
+![](/images/mon11.png)
+
+
+![](/images/mon12.png)
 
 
 
