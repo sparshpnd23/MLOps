@@ -247,7 +247,11 @@ Secondly, another pre-created code will work to add dense layers in the model. A
 			    print(line.strip())
 
 		  
-Similarly, you can also create a program to increase the number of epochs. Here, I haven't done it because in this model, modifying these two hyper parameters will give us great accuracy.
+**ALTERNATIVE METHOD-** If you  are not very comfortable with coding then you can also use the **sed** concept of linux to search & increase the number of epochs by 5 at each round, until accuracy touches the threshold. Similarly, sed can also be used to increase units in layers, etc. 
+Epochs & units are also very good hyper parameters & help in increasing accuracy.
+
+![](/images/epoch.png)
+
 
 Now, when the model is retrained, we see that our accuracy is vey good.
 
